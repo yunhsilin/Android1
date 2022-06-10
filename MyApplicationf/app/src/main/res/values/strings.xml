@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">My Applicationf</string>
+
+    <string name="video_title"></string>
+    <string-array name="videos_array">
+        <item>Mercury</item>
+        <item>Venus</item>
+        <item>Earth</item>
+    </string-array>
+</resources>
