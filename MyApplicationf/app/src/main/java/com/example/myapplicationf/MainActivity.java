@@ -1,12 +1,15 @@
 package com.example.myapplicationf;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -53,7 +56,7 @@ public class MainActivity extends AppCompatActivity  {
 //    }
 
     private VideoView video;
-    private String[] videoFile = {"vivi2", "vivi3", "wildlife"};
+    private String[] videoFile = {"catisland", "shibainu", "dog", "france", "husky", "mesocricetusauratus", "snow", "surfingcat", "sweden", "tencm", "watercat", "wildlife"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,8 +64,8 @@ public class MainActivity extends AppCompatActivity  {
         final Context context = getApplicationContext();
         setContentView(R.layout.activity_main);
         Spinner spinner = (Spinner) findViewById(R.id.label_spinner);
-        ArrayAdapter adapter = ArrayAdapter.createFromResource(this, R.array.videos_array, android.R.layout.simple_spinner_item);
-
+        ArrayAdapter adapter = ArrayAdapter.createFromResource(this, R.array.videos_array, android.R.layout.simple_expandable_list_item_1);
+//        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,R.layout.spinner_style, R.array.videos_array);
 //        video = (VideoView)findViewById(R.id.videoView);
         // 指定影片的URI
 
@@ -78,11 +81,29 @@ public class MainActivity extends AppCompatActivity  {
                 int index=spinner.getSelectedItemPosition();
                 String aaindex;
                 if(index==0){
-                    aaindex="aa";
-                }else if (index==1){
-                    aaindex="bb";
+                    aaindex="catisland";
+                }else if(index==1){
+                    aaindex="shibainu";
+                }else if (index==2){
+                    aaindex="dog";
+                }else if (index==3){
+                    aaindex="france";
+                }else if (index==4){
+                    aaindex="husky";
+                }else if (index==5){
+                    aaindex="mesocricetusauratus";
+                }else if (index==6){
+                    aaindex="snow";
+                }else if (index==7){
+                    aaindex="surfingcat";
+                }else if (index==8){
+                    aaindex="sweden";
+                }else if (index==9){
+                    aaindex="tencm";
+                }else if (index==10){
+                    aaindex="watercat";
                 }else{
-                    aaindex="cc";
+                    aaindex="wildlife";
                 }
                 Toast.makeText(context, aaindex , Toast.LENGTH_LONG).show();
 
@@ -113,9 +134,47 @@ public class MainActivity extends AppCompatActivity  {
 
     }
 
-//    @Override
-//    public void onPause() {
-//        super.onStop();
-//        video.stopPlayback();  // 停止播放
-//    }
+    @Override
+    public void onPause() {
+        super.onStop();
+        video.stopPlayback();  // 停止播放
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        // Change the label of the menu based on the state of the app.
+        int nightMode = AppCompatDelegate.getDefaultNightMode();
+        if(nightMode == AppCompatDelegate.MODE_NIGHT_YES){
+            menu.findItem(R.id.night_mode).setTitle(R.string.day_mode);
+        } else{
+            menu.findItem(R.id.night_mode).setTitle(R.string.night_mode);
+        }
+        return true;
+    }
+
+
+    /**
+     * Handles options menu item clicks.
+     *
+     * @param item The item that was pressed
+     * @return returns true since the item click wa handled
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Check if the correct item was clicked.
+        if (item.getItemId() == R.id.night_mode) {
+            // Get the night mode state of the app.
+            int nightMode = AppCompatDelegate.getDefaultNightMode();
+            // Set the theme mode for the restarted activity.
+            if (nightMode == AppCompatDelegate.MODE_NIGHT_YES) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+            } else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+            }
+            // Recreate the activity for the theme change to take effect.
+            recreate();
+        }
+        return true;
+    }
 }
