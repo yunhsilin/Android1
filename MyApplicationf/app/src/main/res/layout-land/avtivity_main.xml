@@ -42,7 +42,7 @@
         android:scrollbarAlwaysDrawVerticalTrack="true"
         android:scrollbarStyle="insideInset"
         android:spinnerMode="dialog"
-
+        android:layout_marginTop="-50dp"
         android:textAlignment="gravity"
         android:textSize="40dp"
 
